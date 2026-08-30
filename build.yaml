@@ -8,5 +8,6 @@ include:
     shield: redox_left
   - board: nice_nano
     shield: redox_left
+    snippet: zmk-usb-logging
   - board: nice_nano
     shield: redox_right
