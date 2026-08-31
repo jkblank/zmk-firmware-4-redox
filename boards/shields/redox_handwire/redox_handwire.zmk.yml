@@ -1,5 +1,5 @@
 file_format: "1"
-id: redox
+id: redox_handwire
 name: Redox (handwire)
 type: shield
 url: https://github.com/mattdibi/redox-keyboard
@@ -8,5 +8,5 @@ requires:
 features:
   - keys
 siblings:
-  - redox_left
-  - redox_right
+  - redox_handwire_left
+  - redox_handwire_right
