@@ -1,14 +1,14 @@
 if SHIELD_REDOX_HANDWIRE_LEFT
 
-config ZMK_KEYBOARD_NAME
-    default "Redox"
-
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
 endif
 
 if SHIELD_REDOX_HANDWIRE_LEFT || SHIELD_REDOX_HANDWIRE_RIGHT
+
+config ZMK_KEYBOARD_NAME
+    default "Redox"
 
 config ZMK_SPLIT
     default y
