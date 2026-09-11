@@ -40,3 +40,12 @@ To build locally instead of waiting on CI, use a standard West workflow from a f
 - Each keymap row is 14 bindings: 7 for the left half followed by 7 for the right half, matching the `matrix_transform` column layout in `redox_handwire.dtsi`.
 - When adding layers, behaviors (hold-taps, combos, etc.), keep `boards/shields/redox_handwire/redox_handwire.keymap` and `config/redox_handwire.keymap` in sync only if you intend the shield's built-in default to match the user's config — they are not automatically kept in sync, so update both if that invariant matters, or let them diverge deliberately once the user keymap stabilizes.
 - RGB underglow and USB logging are toggled via commented-out `CONFIG_*` lines in `config/redox_handwire.conf`; uncomment there rather than adding new Kconfig fragments elsewhere.
+
+## ZMK Studio
+
+ZMK Studio (live, GUI keymap editing over USB, no reflash) is enabled, central-only per ZMK's own guidance for split keyboards:
+
+- `build.yaml`'s `redox_handwire_left` entries only add the `studio-rpc-usb-uart` snippet and `-DCONFIG_ZMK_STUDIO=y`. The `redox_handwire_right` entries deliberately don't - Studio only needs a live RPC link to whichever half you're plugged into (the central), not both.
+- Studio requires a `zmk,physical-layout` (with a `keys` property giving each key's x/y/w/h/rotation), not a bare `chosen zmk,matrix-transform` - it needs real key positions to render its UI. `redox_handwire.dtsi`'s `default_layout` node wraps the existing `default_transform` for this; the `keys` values are a flat, unstaggered approximation of the real board purely for Studio's visual grid, not a geometrically accurate model - order matches the matrix-transform `map`/keymap `bindings` order (row-major, 14 per row).
+- The keymap's left thumb `SPACE` is `&lt 1 SPACE` (tap = space, hold = the `studio_layer`, which is otherwise all `&trans` except a `&studio_unlock` binding) - Studio can't make changes until that layer's `&studio_unlock` key is pressed.
+- Once Studio has been used to make live changes, edits to the `.keymap` files stop taking effect for the device until a "Restore Stock Settings" is done from the Studio UI - see the `.keymap` files' own header comments before editing them further.

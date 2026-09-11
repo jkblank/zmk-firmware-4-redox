@@ -1,9 +1,10 @@
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <physical_layouts.dtsi>
 
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,matrix-transform = &default_transform;
+        zmk,physical-layout = &default_layout;
     };
 
     /*
@@ -23,6 +24,30 @@ RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6)   RC(2,7) RC(2,8) RC(2,9
 RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6)   RC(3,7) RC(3,8) RC(3,9) RC(3,10) RC(3,11) RC(3,12) RC(3,13)
 RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(4,5) RC(4,6)   RC(4,7) RC(4,8) RC(4,9) RC(4,10) RC(4,11) RC(4,12) RC(4,13)
         >;
+    };
+
+    /*
+     * ZMK Studio requires a zmk,physical-layout (not a bare chosen
+     * zmk,matrix-transform) so its UI can render actual key positions.
+     * This is a flat, unstaggered approximation of the real handwired
+     * layout purely for Studio's visual grid - it doesn't need to be
+     * geometrically accurate to be functional. Order matches the
+     * matrix-transform map / keymap bindings order (row-major, 14 per
+     * row: left cols 0-6, then right cols 7-13, with a half-unit gap
+     * between the halves).
+     */
+    default_layout: default_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "Default Layout";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
+        keys
+            = <&key_physical_attrs 100 100 0 0 0 0 0>,    <&key_physical_attrs 100 100 100 0 0 0 0>,    <&key_physical_attrs 100 100 200 0 0 0 0>,    <&key_physical_attrs 100 100 300 0 0 0 0>,    <&key_physical_attrs 100 100 400 0 0 0 0>,    <&key_physical_attrs 100 100 500 0 0 0 0>,    <&key_physical_attrs 100 100 600 0 0 0 0>,    <&key_physical_attrs 100 100 750 0 0 0 0>,    <&key_physical_attrs 100 100 850 0 0 0 0>,    <&key_physical_attrs 100 100 950 0 0 0 0>,    <&key_physical_attrs 100 100 1050 0 0 0 0>,    <&key_physical_attrs 100 100 1150 0 0 0 0>,    <&key_physical_attrs 100 100 1250 0 0 0 0>,    <&key_physical_attrs 100 100 1350 0 0 0 0>
+            , <&key_physical_attrs 100 100 0 100 0 0 0>,  <&key_physical_attrs 100 100 100 100 0 0 0>,  <&key_physical_attrs 100 100 200 100 0 0 0>,  <&key_physical_attrs 100 100 300 100 0 0 0>,  <&key_physical_attrs 100 100 400 100 0 0 0>,  <&key_physical_attrs 100 100 500 100 0 0 0>,  <&key_physical_attrs 100 100 600 100 0 0 0>,  <&key_physical_attrs 100 100 750 100 0 0 0>,  <&key_physical_attrs 100 100 850 100 0 0 0>,  <&key_physical_attrs 100 100 950 100 0 0 0>,  <&key_physical_attrs 100 100 1050 100 0 0 0>,  <&key_physical_attrs 100 100 1150 100 0 0 0>,  <&key_physical_attrs 100 100 1250 100 0 0 0>,  <&key_physical_attrs 100 100 1350 100 0 0 0>
+            , <&key_physical_attrs 100 100 0 200 0 0 0>,  <&key_physical_attrs 100 100 100 200 0 0 0>,  <&key_physical_attrs 100 100 200 200 0 0 0>,  <&key_physical_attrs 100 100 300 200 0 0 0>,  <&key_physical_attrs 100 100 400 200 0 0 0>,  <&key_physical_attrs 100 100 500 200 0 0 0>,  <&key_physical_attrs 100 100 600 200 0 0 0>,  <&key_physical_attrs 100 100 750 200 0 0 0>,  <&key_physical_attrs 100 100 850 200 0 0 0>,  <&key_physical_attrs 100 100 950 200 0 0 0>,  <&key_physical_attrs 100 100 1050 200 0 0 0>,  <&key_physical_attrs 100 100 1150 200 0 0 0>,  <&key_physical_attrs 100 100 1250 200 0 0 0>,  <&key_physical_attrs 100 100 1350 200 0 0 0>
+            , <&key_physical_attrs 100 100 0 300 0 0 0>,  <&key_physical_attrs 100 100 100 300 0 0 0>,  <&key_physical_attrs 100 100 200 300 0 0 0>,  <&key_physical_attrs 100 100 300 300 0 0 0>,  <&key_physical_attrs 100 100 400 300 0 0 0>,  <&key_physical_attrs 100 100 500 300 0 0 0>,  <&key_physical_attrs 100 100 600 300 0 0 0>,  <&key_physical_attrs 100 100 750 300 0 0 0>,  <&key_physical_attrs 100 100 850 300 0 0 0>,  <&key_physical_attrs 100 100 950 300 0 0 0>,  <&key_physical_attrs 100 100 1050 300 0 0 0>,  <&key_physical_attrs 100 100 1150 300 0 0 0>,  <&key_physical_attrs 100 100 1250 300 0 0 0>,  <&key_physical_attrs 100 100 1350 300 0 0 0>
+            , <&key_physical_attrs 100 100 0 400 0 0 0>,  <&key_physical_attrs 100 100 100 400 0 0 0>,  <&key_physical_attrs 100 100 200 400 0 0 0>,  <&key_physical_attrs 100 100 300 400 0 0 0>,  <&key_physical_attrs 100 100 400 400 0 0 0>,  <&key_physical_attrs 100 100 500 400 0 0 0>,  <&key_physical_attrs 100 100 600 400 0 0 0>,  <&key_physical_attrs 100 100 750 400 0 0 0>,  <&key_physical_attrs 100 100 850 400 0 0 0>,  <&key_physical_attrs 100 100 950 400 0 0 0>,  <&key_physical_attrs 100 100 1050 400 0 0 0>,  <&key_physical_attrs 100 100 1150 400 0 0 0>,  <&key_physical_attrs 100 100 1250 400 0 0 0>,  <&key_physical_attrs 100 100 1350 400 0 0 0>
+            ;
     };
 
     kscan0: kscan {
