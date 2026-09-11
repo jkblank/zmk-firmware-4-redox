@@ -1,1 +1,34 @@
+#include <behaviors.dtsi>
 #include "redox_handwire.dtsi"
+
+/*
+ * Dedicated ZMK Studio unlock button, wired to the open pro_micro pin 0
+ * (SoC P0.08) on this (left/central) board only - Studio's RPC service
+ * only runs on the central, so this only makes sense here, not on the
+ * right/peripheral build. The button is wired pin-to-GND, using the
+ * SoC's internal pull-up (no external resistor needed).
+ *
+ * zmk,kscan-sideband-behaviors fires a behavior directly from a kscan
+ * event, entirely separate from the keymap/matrix-transform/physical
+ * -layout - so this doesn't need a 71st keymap position, transform
+ * entry, or physical-layout key, unlike the &lt 1 SPACE / studio_layer
+ * hold-tap alternative already in the keymap.
+ */
+/ {
+    studio_button_kscan: studio_button_kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        input-gpios = <&pro_micro 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
+
+    studio_button_sideband: studio_button_sideband {
+        compatible = "zmk,kscan-sideband-behaviors";
+        kscan = <&studio_button_kscan>;
+        auto-enable;
+
+        studio_unlock_key {
+            row = <0>;
+            column = <0>;
+            bindings = <&studio_unlock>;
+        };
+    };
+};
