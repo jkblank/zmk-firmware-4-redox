@@ -1,1 +1,12 @@
 #include "redox_handwire.dtsi"
+
+/*
+ * Both halves share the same row-gpios/col-gpios, so each half's kscan
+ * reports local columns 0-6 regardless of which physical half it is.
+ * Without this offset, the right half's matrix-transform lookup collides
+ * with the left half's positions at the same local (row, col), so right-half
+ * keypresses register as whatever is bound to the mirrored left-half key.
+ */
+&default_transform {
+    col-offset = <7>;
+};
